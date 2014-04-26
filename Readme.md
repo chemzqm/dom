@@ -78,15 +78,15 @@ _(document.body).children();
 
 ### .prevAll(selector)
 
-* find all previous node by selector or direct previousSibling.
+* find all previous node filter with optional selector.
 
 ### .nextAll([selector])
 
-* find all next node by selector or direct previousSibling.
+* find all next node filter with optional selector.
 
 ### .each(fn)
 
-* call `fn` with each element.
+* call `fn` with each node with arguments `el, i, els`.
 
 ## License
 

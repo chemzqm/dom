@@ -1,0 +1,21 @@
+{
+  "name": "dom",
+  "description": "Lightweight dom traverse & manipulation",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "yields/traverse": "*"
+  },
+  "development": {
+    "dependencies": {
+      "component/assert": "*",
+      "component/matches-selector": "*"
+    }
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "chemzqm/ago"
+}

@@ -84,6 +84,10 @@ _(document.body).children();
 
 * find all next node by selector or direct previousSibling.
 
+### .each(fn)
+
+* call `fn` with each element.
+
 ## License
 
   The MIT License (MIT)

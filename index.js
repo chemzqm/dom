@@ -107,3 +107,11 @@ Dom.prototype.nextAll = function (selector) {
   var el = this.el[0] || this.el;
   return traverse(el, 'nextSibling', selector);
 }
+
+Dom.prototype.each = function (fn) {
+  var els = ('length' in this.el) ? this.el : [this.el];
+  for (var i = 0, len = els.length; i < len; i++) {
+    var n = els[i];
+    fn(n, i, els);
+  }
+}

@@ -1,6 +1,13 @@
+language: node_js
+node_js:
+- '0.11'
 install:
-  - npm install -g component-test2
-  - npm install -g component
+- npm install -g cnpm
+- cnpm install -g component-test2
+- cnpm install -g component
 script:
-  - make
-  - make test
+- make
+- make test
+env:
+  global:
+    secure: STriCLXS4HVmtR7f14Hg90Pt/A74jsathmABkivAYAZhSIds498hwxWpVkkS+/qsaUfcTKTFjJ3eCs5ZlrJQSbM8pgmFzUiB2MThYvQP2GXslOMgkXpiEPhJSTujvmMPC+IkjGQzQ9NSqRDJ3XvsGxU3ilSq5Xjr60SN8bjPgS8=

@@ -48,7 +48,6 @@ append node to (each) element.
 
 append element(s) to node.
 
-
 ### .prepend(node)
 
 prepend node to (each) element.

@@ -2,31 +2,41 @@ var traverse = require('traverse');
 var matches = require('matches-selector');
 
 //methods for all nodes
-var methods = ['clean', 'remove', 'insertBefore', 'insertAfter', 'append', 'appendTo', 'attr', 'style'];
+var methods = ['clean', 'remove', 'insertBefore', 'insertAfter',
+            'append', 'appendTo', 'prepend', 'prependTo', 'attr', 'style', 'each'];
+
+module.exports = Dom;
 
 function Dom(node) {
   if (!(this instanceof Dom)) return new Dom(node);
   this.el = ('length' in node) ? node[0] : node;
-  if (node.length) {
+  if ('length' in node) {
     methods.forEach(function(m) {
       var me = this;
       var fn = this[m];
       this[m] = function() {
-        for (var j = 0, l = node.length; j < l; j++) {
-          fn.apply({ el: node[j] }, arguments);
+        var l = node.length;
+        for (var j = 0 ; j < l; j++) {
+          fn.apply({ el: node[j], index:j, els:node }, arguments);
         }
       }
-    })
+    }.bind(this))
   }
+}
+
+Dom.prototype.remove = function () {
+  if (!this.el.parentNode) return;
+  this.el.parentNode.removeChild(this.el);
 }
 
 Dom.prototype.clean = function (selector) {
   var nodes = this.el.childNodes;
-  for (var i = 0, len = nodes.length; i < len; i++) {
-    var n = nodes[i];
-    if (selector && !matches(n, selector)) continue;
+  var len = nodes.length;
+  var els = [].slice.call(nodes);
+  els.forEach(function(n) {
+    if (selector && !matches(n, selector)) return;
     this.el.removeChild(n);
-  }
+  }.bind(this));
 }
 
 Dom.prototype.insertBefore = function (node) {
@@ -34,7 +44,7 @@ Dom.prototype.insertBefore = function (node) {
 }
 
 Dom.prototype.insertAfter = function (node) {
-  var nextEl = traverse(this.el, 'nextSibling')[0];
+  var nextEl = traverse('nextSibling', node)[0];
   if (nextEl) {
     node.parentNode.insertBefore(this.el, nextEl);
   } else {
@@ -43,11 +53,31 @@ Dom.prototype.insertAfter = function (node) {
 }
 
 Dom.prototype.append = function (node) {
-  this.el.parentNode.appendChild(node);
+  var n = node.cloneNode(true);
+  if (node.parentNode) node.parentNode.removeChild(node);
+  this.el.appendChild(n);
+}
+
+Dom.prototype.prepend = function (node) {
+  var n = node.cloneNode(true);
+  if (node.parentNode) node.parentNode.removeChild(node);
+  if (this.el.firstChild) {
+    this.el.insertBefore(n, this.el.firstChild);
+  } else {
+    this.el.appendChild(node);
+  }
 }
 
 Dom.prototype.appendTo = function (node) {
   node.appendChild(this.el);
+}
+
+Dom.prototype.prependTo = function (node) {
+  if (node.firstChild) {
+    node.insertBefore(this.el, node.firstChild);
+  } else {
+    node.appendChild(this.el);
+  }
 }
 
 Dom.prototype.attr = function (obj) {
@@ -62,56 +92,51 @@ Dom.prototype.style = function (obj) {
   }
 }
 
-Dom.prototype.remove = function () {
-  this.el.parentNode.removeChild(this.el);
-}
-
 Dom.prototype.parent = function (selector) {
   var el = this.el[0] || this.el;
   if (!selector) return el.parentNode;
-  return traverse(el, 'parentNode', selector, 1)[0];
+  return traverse('parentNode', el, selector)[0];
 }
 
 Dom.prototype.parents = function (selector) {
   var el = this.el[0] || this.el;
-  return traverse(el, 'parentNode', selector);
+  return traverse('parentNode', el, selector, 100);
 }
 
 Dom.prototype.children = function (selector) {
   var el = this.el[0] || this.el;
   var nodes = el.childNodes;
   var ret = [];
-  for (var i = 0, len = nodes.length; i < len; i++) {
+  var len = nodes.length;
+  for (var i = 0 ; i < len; i++) {
     var n = nodes[i];
-    if (matches(n, selector)) ret.push(n);
+    if (selector && !matches(n, selector)) continue;
+    ret.push(n);
   }
   return ret;
 }
 
 Dom.prototype.prev = function (selector) {
   var el = this.el[0] || this.el;
-  return traverse(el, 'previousSibling', selector, 1)[0];
+  return traverse('previousSibling', el, selector)[0];
 }
 
 Dom.prototype.prevAll = function (selector) {
   var el = this.el[0] || this.el;
-  return traverse(el, 'previousSibling', selector);
+  return traverse('previousSibling', el, selector, Infinity);
 }
 
 Dom.prototype.next = function (selector) {
   var el = this.el[0] || this.el;
-  return traverse(el, 'nextSibling', selector, 1)[0];
+  return traverse('nextSibling', el, selector, 1)[0];
 }
 
 Dom.prototype.nextAll = function (selector) {
   var el = this.el[0] || this.el;
-  return traverse(el, 'nextSibling', selector);
+  return traverse('nextSibling', el, selector, Infinity);
 }
 
 Dom.prototype.each = function (fn) {
-  var els = ('length' in this.el) ? this.el : [this.el];
-  for (var i = 0, len = els.length; i < len; i++) {
-    var n = els[i];
-    fn(n, i, els);
-  }
+  if (!this.els) throw new Error('should be inited with node array');
+  fn(this.el, this.index, this.els);
 }

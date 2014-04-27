@@ -4,7 +4,7 @@
 
   This component is made for complex component and apps.
 
-  TODO: test
+  [![Build Status](https://secure.travis-ci.org/chemzqm/dom.png)](http://travis-ci.org/chemzqm/dom)
 
 ``` js
 var _ = require('dom');
@@ -22,80 +22,80 @@ _(document.body).children();
 
 ### dom(nodes|node)
 
-* initialize dom with node or array of nodes(or array like).
+initialize dom with node or array of nodes(or array like).
 
 ### .clean([selector])
 
-* clean the childnodes with selector of empty the node(s).
+clean the childnodes with selector of empty the node(s).
 
 ### .remove()
 
-* remove node(s).
+remove node(s).
 
 ### .insertBefore(node)
 
-* insert the element(s) before `node`.
+insert the element(s) before `node`.
 
 ### .insertAfter(node)
 
-* insert the element(s) after `node`.
+insert the element(s) after `node`.
 
 ### .append(node)
 
-* append node to (each) element.
+append node to (each) element.
 
 ### .appendTo(node)
 
-* append element(s) to node.
+append element(s) to node.
 
 
 ### .prepend(node)
 
-* prepend node to (each) element.
+prepend node to (each) element.
 
 ### .prependTo(node)
 
-* prepend element(s) to node.
+prepend element(s) to node.
 
 ### .attr(object)
 
-* set attributes for node(s)
+set attributes for node(s)
 
 ### .style(object)
 
-* set styles for node(s)
+set styles for node(s)
 
 ### .parent([selector])
 
-* find parent by selector or direct parent.
+find parent by selector or direct parent.
 
 ### .parents([selector])
 
-* find parents by selector or all parents.
+find parents by selector or all parents.
 
 ### .children([selector])
 
-* find direct children by selector or all children.
+find direct children by selector or all children.
 
 ### .prev([selector])
 
-* find previous node by selector or direct previousSibling.
+find previous node by selector or direct previousSibling.
 
 ### .next([selector])
 
-* find next node by selector or direct previousSibling.
+find next node by selector or direct previousSibling.
 
 ### .prevAll(selector)
 
-* find all previous node filter with optional selector.
+find all previous node filter with optional selector.
 
 ### .nextAll([selector])
 
-* find all next node filter with optional selector.
+find all next node filter with optional selector.
 
 ### .each(fn)
 
-* call `fn` with each node with arguments `el, i, els`.
+call `fn` with each node with arguments `el, i, els`.
 
 ## License
 

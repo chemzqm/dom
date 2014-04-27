@@ -48,6 +48,15 @@ _(document.body).children();
 
 * append element(s) to node.
 
+
+### .prepend(node)
+
+* prepend node to (each) element.
+
+### .prependTo(node)
+
+* prepend element(s) to node.
+
 ### .attr(object)
 
 * set attributes for node(s)

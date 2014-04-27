@@ -5,6 +5,9 @@ build: components index.js
 components: component.json
 	@component install --dev
 
+watch:
+	@component build --dev -w
+
 test:
 	@component test phantom
 

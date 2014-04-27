@@ -8,8 +8,8 @@
 
 ``` js
 var _ = require('dom');
-//direct children
-_(document.body).children();
+var els = document.querySelectorAll('.foo');
+_(els).appendTo(document.body);
 ```
 
 ## Installation

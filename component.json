@@ -4,12 +4,13 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "yields/traverse": "*"
+    "yields/traverse": "*",
+      "component/matches-selector": "*"
   },
   "development": {
     "dependencies": {
-      "component/assert": "*",
-      "component/matches-selector": "*"
+      "component/domify": "*",
+      "component/assert": "*"
     }
   },
   "license": "MIT",

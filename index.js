@@ -1,35 +1,39 @@
 var traverse = require('traverse');
 var matches = require('matches-selector');
 
-//methods for all nodes
-var methods = ['clean', 'remove', 'insertBefore', 'insertAfter',
-            'append', 'appendTo', 'prepend', 'prependTo', 'attr', 'style', 'each'];
-
 module.exports = Dom;
 
-function Dom(node) {
-  if (!(this instanceof Dom)) return new Dom(node);
-  this.el = ('length' in node) ? node[0] : node;
-  if ('length' in node) {
-    methods.forEach(function(m) {
-      var me = this;
-      var fn = this[m];
-      this[m] = function() {
-        var l = node.length;
-        for (var j = 0 ; j < l; j++) {
-          fn.apply({ el: node[j], index:j, els:node }, arguments);
-        }
+function Dom(nodes) {
+  if (!(this instanceof Dom)) return new Dom(nodes);
+  this.el = nodes[0] || nodes;
+  var els = ('length'in nodes) ? nodes : [nodes];
+
+  Object.keys(methods).forEach(function(key) {
+    var fn = methods[key];
+    this[key] = function () {
+      for (var i = 0, len = els.length; i < len; i++) {
+        fn.apply({el: els[i], index:i, els: els}, arguments);
       }
-    }.bind(this))
-  }
+    }
+  }.bind(this));
+
 }
 
-Dom.prototype.remove = function () {
+/**
+ * methods use nodes array
+ */
+var methods = {};
+
+/**
+ * safely remove
+ * @api public
+ */
+methods.remove = function () {
   if (!this.el.parentNode) return;
   this.el.parentNode.removeChild(this.el);
 }
 
-Dom.prototype.clean = function (selector) {
+methods.clean = function (selector) {
   var nodes = this.el.childNodes;
   var len = nodes.length;
   var els = [].slice.call(nodes);
@@ -39,11 +43,11 @@ Dom.prototype.clean = function (selector) {
   }.bind(this));
 }
 
-Dom.prototype.insertBefore = function (node) {
+methods.insertBefore = function (node) {
   node.parentNode.insertBefore(this.el, node);
 }
 
-Dom.prototype.insertAfter = function (node) {
+methods.insertAfter = function (node) {
   var nextEl = traverse('nextSibling', node)[0];
   if (nextEl) {
     node.parentNode.insertBefore(this.el, nextEl);
@@ -52,27 +56,23 @@ Dom.prototype.insertAfter = function (node) {
   }
 }
 
-Dom.prototype.append = function (node) {
-  var n = node.cloneNode(true);
-  if (node.parentNode) node.parentNode.removeChild(node);
-  this.el.appendChild(n);
+methods.append = function (node) {
+  this.el.appendChild(node);
 }
 
-Dom.prototype.prepend = function (node) {
-  var n = node.cloneNode(true);
-  if (node.parentNode) node.parentNode.removeChild(node);
+methods.prepend = function (node) {
   if (this.el.firstChild) {
-    this.el.insertBefore(n, this.el.firstChild);
+    this.el.insertBefore(node, this.el.firstChild);
   } else {
     this.el.appendChild(node);
   }
 }
 
-Dom.prototype.appendTo = function (node) {
+methods.appendTo = function (node) {
   node.appendChild(this.el);
 }
 
-Dom.prototype.prependTo = function (node) {
+methods.prependTo = function (node) {
   if (node.firstChild) {
     node.insertBefore(this.el, node.firstChild);
   } else {
@@ -80,31 +80,45 @@ Dom.prototype.prependTo = function (node) {
   }
 }
 
-Dom.prototype.attr = function (obj) {
+/**
+ * set attrs
+ * @param {String} obj
+ * @api public
+ */
+methods.attr = function (obj) {
   for (var p in obj) {
     this.el.setAttribute(p, obj[p]);
   }
 }
 
-Dom.prototype.style = function (obj) {
+/**
+ * set styles
+ * @param {String} obj
+ * @api public
+ */
+methods.style = function (obj) {
   for (var p in obj) {
     this.el.style[p] = obj[p];
   }
 }
 
+methods.each = function (fn) {
+  fn(this.el, this.index, this.els);
+}
+
 Dom.prototype.parent = function (selector) {
-  var el = this.el[0] || this.el;
+  var el = this.el;
   if (!selector) return el.parentNode;
   return traverse('parentNode', el, selector)[0];
 }
 
 Dom.prototype.parents = function (selector) {
-  var el = this.el[0] || this.el;
+  var el = this.el;
   return traverse('parentNode', el, selector, 100);
 }
 
 Dom.prototype.children = function (selector) {
-  var el = this.el[0] || this.el;
+  var el = this.el;
   var nodes = el.childNodes;
   var ret = [];
   var len = nodes.length;
@@ -117,26 +131,21 @@ Dom.prototype.children = function (selector) {
 }
 
 Dom.prototype.prev = function (selector) {
-  var el = this.el[0] || this.el;
+  var el = this.el;
   return traverse('previousSibling', el, selector)[0];
 }
 
 Dom.prototype.prevAll = function (selector) {
-  var el = this.el[0] || this.el;
+  var el = this.el;
   return traverse('previousSibling', el, selector, Infinity);
 }
 
 Dom.prototype.next = function (selector) {
-  var el = this.el[0] || this.el;
+  var el = this.el;
   return traverse('nextSibling', el, selector, 1)[0];
 }
 
 Dom.prototype.nextAll = function (selector) {
-  var el = this.el[0] || this.el;
+  var el = this.el;
   return traverse('nextSibling', el, selector, Infinity);
-}
-
-Dom.prototype.each = function (fn) {
-  if (!this.els) throw new Error('should be inited with node array');
-  fn(this.el, this.index, this.els);
 }

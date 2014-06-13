@@ -5,7 +5,7 @@
   "keywords": [],
   "dependencies": {
     "yields/traverse": "*",
-      "component/matches-selector": "*"
+    "component/matches-selector": "*"
   },
   "development": {
     "dependencies": {
@@ -18,5 +18,5 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "chemzqm/ago"
+  "repository": "chemzqm/dom"
 }

@@ -124,6 +124,7 @@ Dom.prototype.children = function (selector) {
   var len = nodes.length;
   for (var i = 0 ; i < len; i++) {
     var n = nodes[i];
+    if (n.nodeType !== 1) continue;
     if (selector && !matches(n, selector)) continue;
     ret.push(n);
   }

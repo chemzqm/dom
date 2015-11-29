@@ -1,0 +1,56 @@
+{
+  "name": "dom-easy",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "make test-coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/chemzqm/dom.git"
+  },
+  "keywords": [
+    "dom",
+    "traverse"
+  ],
+  "author": "chemzqm@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chemzqm/dom/issues"
+  },
+  "homepage": "https://github.com/chemzqm/dom#readme",
+  "devDependencies": {
+    "coveralls": "^2.11.4",
+    "domify": "^1.4.0",
+    "file-loader": "^0.8.5",
+    "gulp": "^3.9.0",
+    "html-loader": "^0.3.0",
+    "istanbul": "^0.4.0",
+    "istanbul-instrumenter-loader": "^0.1.3",
+    "karma": "^0.13.15",
+    "karma-cli": "^0.1.1",
+    "karma-coverage": "^0.5.3",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0",
+    "karma-webpack": "^1.7.0",
+    "karma-wrap-preprocessor": "^0.1.0",
+    "mocha": "^2.3.3",
+    "mocha-notify": "0.0.4",
+    "stack-source-map": "^1.0.4",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.12.6",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "component-matches-selector": "^0.1.5",
+    "yields-traverse": "^0.2.0"
+  },
+  "browser": {
+    "traverse": "yields-traverse",
+    "matches-selector": "component-matches-selector"
+  }
+}

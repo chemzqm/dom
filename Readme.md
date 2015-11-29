@@ -1,5 +1,9 @@
 # Dom
 
+[![NPM version](https://badge.fury.io/js/dom)](http://badge.fury.io/js/dom)
+[![Build Status](https://secure.travis-ci.org/chemzqm/dom.svg)](http://travis-ci.org/chemzqm/dom)
+[![Coverage Status](https://coveralls.io/repos/chemzqm/dom/badge.svg?branch=master&service=github)](https://coveralls.io/github/chemzqm/dom?branch=master)
+
   Light weight dom traverse & manipulation (no weired stuff)
 
   This component is made for complex component and apps.

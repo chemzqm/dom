@@ -1,20 +1,16 @@
-
-build: components index.js
-	@component build --dev
-
-components: component.json
-	@component install --dev
-
-watch:
-	@component build --dev -w
-
 test:
-	@component test phantom
+	@open http://localhost:8080/bundle
+	@gulp webpack:test
 
-test-browser:
-	@component test browser
+test-karma:
+	@node_modules/.bin/karma start --single-run
 
-clean:
-	rm -fr build components template.js
+test-coveralls:
+	@echo TRAVIS_JOB_ID $(TRAVIS_JOB_ID)
+	@node_modules/.bin/karma start --single-run && \
+		cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
-.PHONY: clean test
+doc:
+	@ghp-import example -n -p
+
+.PHONY: test

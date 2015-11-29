@@ -4,11 +4,7 @@
 [![Build Status](https://secure.travis-ci.org/chemzqm/dom.svg)](http://travis-ci.org/chemzqm/dom)
 [![Coverage Status](https://coveralls.io/repos/chemzqm/dom/badge.svg?branch=master&service=github)](https://coveralls.io/github/chemzqm/dom?branch=master)
 
-  Light weight dom traverse & manipulation (no weired stuff)
-
-  This component is made for complex component and apps.
-
-  [![Build Status](https://secure.travis-ci.org/chemzqm/dom.png)](http://travis-ci.org/chemzqm/dom)
+  Light weight dom traverse & manipulation (no chain or any other thing)
 
 ``` js
 var _ = require('dom');

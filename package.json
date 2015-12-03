@@ -1,7 +1,7 @@
 {
   "name": "dom-easy",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "basic dom operation only",
   "main": "lib/index.js",
   "directories": {
     "test": "test"

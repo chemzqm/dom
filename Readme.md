@@ -1,11 +1,12 @@
 # Dom
 
+Light weight dom traverse & manipulation (no chain or any other thing)
+
 [![NPM version](https://img.shields.io/npm/v/dom-easy.svg?style=flat-square)](https://www.npmjs.com/package/dom-easy)
 [![Dependency Status](https://img.shields.io/david/chemzqm/dom.svg?style=flat-square)](https://david-dm.org/chemzqm/dom)
 [![Build Status](https://img.shields.io/travis/chemzqm/dom/master.svg?style=flat-square)](http://travis-ci.org/chemzqm/dom)
 [![Coverage Status](https://img.shields.io/coveralls/chemzqm/dom/master.svg?style=flat-square)](https://coveralls.io/github/chemzqm/dom?branch=master)
 
-  Light weight dom traverse & manipulation (no chain or any other thing)
 
 ``` js
 var _ = require('dom');

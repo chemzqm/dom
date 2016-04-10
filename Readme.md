@@ -26,9 +26,13 @@ _(els).appendTo(document.body);
 
 ## API
 
-### dom(nodes|node)
+### dom(nodes|node|selector)
 
-initialize dom with node or array of nodes(or array like).
+initialize dom with node or array or selector of nodes(or array like).
+
+### dom.all(selector)
+
+initialize dom with querySelectorAll from selector.
 
 ### .clean([selector])
 

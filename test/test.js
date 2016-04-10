@@ -31,6 +31,22 @@ function toHtml(nodes) {
 }
 
 describe('Dom', function() {
+  describe('constractor', function () {
+    it('should init with selector', function () {
+      var node = create(0)
+      node.className = 'test'
+      assert.equal(node, _('.test').el)
+    })
+
+    it('should init with all method', function () {
+      var nodes = createNodes(3)
+      nodes.forEach(function (n) {
+        n.className = 'item'
+      })
+      assert.equal(_.all('.item').els.length, 3)
+    })
+  })
+
   describe('clean', function () {
     it('should clean the node', function() {
       var node = create('test')
@@ -197,6 +213,20 @@ describe('Dom', function() {
       })
     })
 
+    it('should get the attribute of els', function () {
+      var els = createNodes(3)
+      _(els).each(function (el, i) {
+        _(el).attr({'data-id': i + 1})
+      })
+      var res = _(els).attr('data-id')
+      assert.deepEqual(res,['1', '2', '3'])
+    })
+
+    it('should get attribute of element', function () {
+      var el = create(0)
+      _(el).attr({'data-action': 'remove'})
+      assert.equal(_(el).attr('data-action'), 'remove')
+    })
   })
 
   describe('style', function() {
@@ -220,6 +250,21 @@ describe('Dom', function() {
         assert.equal(el.style.height, '100px')
         assert.equal(el.style.width, '200px')
       })
+    })
+
+    it('should get style of element', function () {
+      var el = create()
+      _(el).style({display: 'none'})
+      assert.equal(_(el).style('display'), 'none')
+    })
+
+    it('should get styles of elements', function () {
+      var els = createNodes(3)
+      _(els).style({
+        display: 'none'
+      })
+      var styles = _(els).style('display')
+      assert.deepEqual(styles, ['none', 'none', 'none'])
     })
   })
 
